@@ -18,11 +18,13 @@ routes.get("/user/:id", UserController.show);
 routes.delete("/user/:id", UserController.delete);
 routes.put("/user/:id", UserController.update);
 
-routes.post("/action", AuthMiddleware, ActionController.store);
-routes.get("/action/:id", AuthMiddleware, ActionController.show);
-routes.delete("/action/:id", AuthMiddleware, ActionController.delete);
-routes.put("/action/:id", AuthMiddleware, ActionController.update);
+routes.use(AuthMiddleware);
 
-routes.get("/search", AuthMiddleware, SearchController.index);
+routes.post("/action", ActionController.store);
+routes.get("/action/:id", ActionController.show);
+routes.delete("/action/:id", ActionController.delete);
+routes.put("/action/:id", ActionController.update);
+
+routes.get("/search", SearchController.index);
 
 module.exports = routes;
