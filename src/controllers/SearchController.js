@@ -1,20 +1,20 @@
-const User = require("../models/User");
+const Action = require("../models/Action");
 
 module.exports = {
   async index(req, res) {
     const { latitude, longitude } = req.query;
-    const users = await User.find({
+    const actions = await Action.find({
       location: {
         $near: {
           $geometry: {
             type: "Point",
             coordinates: [longitude, latitude]
           },
-          $maxDistance: 10000
+          $maxDistance: 5000
         }
       }
     });
 
-    return res.json({ users });
+    return res.json({ actions });
   }
 };
