@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const PointSchema = require('./utils/PointSchema');
+const PointSchema = require("./utils/PointSchema");
 
 const ActionSchema = new mongoose.Schema({
   title: {
@@ -16,7 +16,16 @@ const ActionSchema = new mongoose.Schema({
   },
   location: {
     type: PointSchema,
-    index: "2dsphere"
+    index: "2dsphere",
+    required: true
+  },
+  address: {
+    type: Object
+  },
+  service: {
+    type: Boolean,
+    required: true,
+    default: false
   }
 });
 

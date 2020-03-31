@@ -13,20 +13,55 @@ module.exports = {
     }
   },
 
+  async index(req, res) {
+    try {
+      const actions = await Action.find({ owner_id: req.userId });
+
+      return res.status(302).send(actions);
+    } catch (error) {
+      return res
+        .status(400)
+        .send({ error: "Error to show an action, try again" });
+    }
+  },
+
   async store(req, res) {
     try {
-      const { title, description, longitude, latitude } = req.body;
+      const {
+        title,
+        description,
+        longitude,
+        latitude,
+        country,
+        uf,
+        city,
+        zip_code,
+        neighbourhood,
+        street,
+        number
+      } = req.body;
 
       const location = {
         type: "Point",
         coordinates: [longitude, latitude]
       };
 
+      const address = {
+        country,
+        uf,
+        city,
+        zip_code,
+        neighbourhood,
+        street,
+        number
+      };
+
       const action = await Action.create({
         title,
         description,
         owner_id: req.userId,
-        location
+        location,
+        address
       });
 
       return res.status(201).send(action);

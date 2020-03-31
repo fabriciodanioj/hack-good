@@ -21,6 +21,7 @@ routes.put("/user/:id", UserController.update);
 routes.use(AuthMiddleware);
 
 routes.post("/action", ActionController.store);
+routes.get("/action", ActionController.index);
 routes.get("/action/:id", ActionController.show);
 routes.delete("/action/:id", ActionController.delete);
 routes.put("/action/:id", ActionController.update);
